@@ -1,6 +1,5 @@
 <div align="center">
-
-## Hi, I'm CMHR 👋
+# Hi, I'm CMHR 👋
 
 智能建造专业学生 · 喜欢折腾服务器、Homelab 和 Android 开发
 
