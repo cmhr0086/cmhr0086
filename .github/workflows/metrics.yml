@@ -1,0 +1,36 @@
+# 放到 cmhr0086/cmhr0086 仓库的 .github/workflows/metrics.yml
+# 需要先在仓库 Settings → Secrets and variables → Actions 里添加 METRICS_TOKEN
+name: Metrics
+
+on:
+  schedule:
+    - cron: "0 22 * * *" # 每天北京时间 06:00
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          user: cmhr0086
+          filename: github-metrics.svg
+          template: classic
+          config_timezone: Asia/Shanghai
+          base: header, activity, community, repositories
+
+          # 语言占比
+          plugin_languages: yes
+          plugin_languages_details: percentage
+          plugin_languages_limit: 8
+          plugin_languages_ignored: html, css, shell, makefile, cmake
+          plugin_languages_skipped: cmhr0086/cmhr0086
+
+          # 一年的贡献日历
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: half-year
